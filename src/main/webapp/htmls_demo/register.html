@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户注册</title>
+    <style type="text/css">
+        span{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<script type="text/javascript">
+    window.onload=function () {
+        var text_name=document.getElementById("name");
+        var text_password=document.getElementById("password");
+        var text_phoneNum=document.getElementById("phoneNum");
+        var text_email=document.getElementById("email");
+
+        var error_name=document.getElementById("error_name");
+        var error_password=document.getElementById("error_password");
+        var error_phoneNum=document.getElementById("error_phoneNum");
+        var error_email=document.getElementById("error_email");
+
+        text_name.onblur=function () {
+
+            if(text_name.value==""){
+                error_name.innerText="用户名不能为空";
+            }
+        }
+        text_name.onfocus=function () {
+            error_name.innerText="";
+        }
+
+        text_password.onblur=function () {
+            if(text_password.value==""){
+               error_password.innerText="密码不能为空";
+            }
+        }
+
+        text_password.onfocus=function(){
+            error_password.innerText="";
+        }
+
+        /**
+         * 判断手机号输入格式
+         */
+        var satisfied_phoneNum=false;
+        text_phoneNum.onblur=function () {
+            var reg=/^1[3456789]\d{9}$/
+            satisfied_phoneNum=reg.test(text_phoneNum.value);
+            if(text_phoneNum.value==""){
+               error_phoneNum.innerText="手机号不能为空";
+               return;
+            }else if(!satisfied_phoneNum){
+                error_phoneNum.innerText="手机号格式不正确"
+                return;
+            }
+        }
+
+        text_password.onfocus=function () {
+            error_phoneNum.innerText="";
+        }
+
+        /**
+         * 判断邮箱输入格式
+         */
+        var satisfied_email=false;
+        text_email.onblur=function () {
+            var reg=/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/
+            satisfied_email=reg.test(text_email.value)
+            if(text_email.value==""){
+                error_email.innerText="邮箱不能为空"
+                return;
+            }else if(!satisfied_email){
+                error_email.innerText="邮箱格式不正确"
+                return;
+            }
+        }
+
+        text_email.onfocus=function () {
+            error_email.innerText="";
+        }
+
+        /**
+         * 控制表单提交
+         */
+        var form_register=document.getElementById("form_register");
+        form_register.onsubmit=function () {
+            if(text_name.value==""||text_password.value==""||!satisfied_phoneNum||!satisfied_email){
+                return false;
+            }
+            return true;
+        }
+
+    }
+</script>
+
+
+<h1>用户注册</h1>
+<form action="index.html" method="post" id="form_register">
+    <table>
+        <tr>
+            <td align="right">
+                <label for="name">用户名</label>
+            </td>
+            <td>
+                <input type="text" id="name" name="name">
+            </td>
+            <td>
+                <span id="error_name"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="password">密码</label>
+            </td>
+            <td>
+                <input type="password" id="password" name="password">
+            </td>
+            <td>
+                <span id="error_password"></span>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <label>电话</label>
+            </td>
+            <td>
+                <input type="text" id="phoneNum" name="phoneNum">
+            </td>
+            <td>
+                <span id="error_phoneNum"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>邮箱</label>
+            </td>
+            <td>
+                <input type="text" id="email" name="email">
+            </td>
+            <td>
+                <span id="error_email"></span>
+            </td>
+        </tr>
+
+        <tr align="center">
+            <td></td>
+            <td>
+                <input type="submit" value="提交" width="200px">
+            </td>
+            <td></td>
+        </tr>
+    </table>
+</form>
+
+</body>
+</html>

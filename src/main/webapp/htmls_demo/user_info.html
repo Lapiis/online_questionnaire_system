@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户信息修改</title>
+</head>
+<body>
+<h1>用户信息修改</h1>
+<h2>你的用户名为:张三</h2>
+<form method="post" action="/user/main" id="form_save">
+<!--    <input type="hidden" name="id" value="${user.id}">-->
+    <table>
+        <tr>
+            <td>密码</td>
+            <td>
+                <input type="password" value="" name="password">
+            </td>
+        </tr>
+        <tr>
+            <td>电话</td>
+            <td>
+                <input type="text" name="phoneNum" value="">
+            </td>
+        </tr>
+        <tr>
+            <td>邮箱</td>
+            <td>
+                <input type="text" name="email" value="">
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <input type="submit" value="保存">
+            </td>
+        </tr>
+    </table>
+</form>
+
+
+<script type="text/javascript">
+    var form_save=document.getElementById("form_save");
+    form_save.onsubmit=function () {
+        if(confirm("是否提交修改？")){
+            return true;
+        }
+        return false;
+    }
+
+
+
+</script>
+
+</body>
+</html>

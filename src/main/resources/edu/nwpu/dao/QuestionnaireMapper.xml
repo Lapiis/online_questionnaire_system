@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.nwpu.dao.QuestionnaireMapper">
+    <resultMap id="BaseResultMap" type="edu.nwpu.domain.Questionnaire">
+        <id column="questionnaire_id" jdbcType="INTEGER" property="id"/>
+        <result column="questionnaire_status" jdbcType="INTEGER" property="status"/>
+        <result column="questionnaire_title" jdbcType="VARCHAR" property="title"/>
+        <result column="questionnaire_url" jdbcType="VARCHAR" property="url"/>
+        <result column="questionnaire_createTime" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="questionnaire_uid" jdbcType="INTEGER" property="uid"/>
+        <result column="questionnaire_checkTime" jdbcType="TIMESTAMP" property="checkTime"/>
+        <result column="questionnaire_mid" jdbcType="INTEGER" property="mid"/>
+        <result column="questionnaire_updateTime" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        questionnaire.id as questionnaire_id, questionnaire.`status` as `questionnaire_status`,
+    questionnaire.title as questionnaire_title, questionnaire.url as questionnaire_url, 
+    questionnaire.createTime as questionnaire_createTime, questionnaire.`uid` as `questionnaire_uid`, 
+    questionnaire.checkTime as questionnaire_checkTime, questionnaire.mid as questionnaire_mid, 
+    questionnaire.updateTime as questionnaire_updateTime
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from questionnaire questionnaire
+        where questionnaire.id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from questionnaire
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="edu.nwpu.domain.Questionnaire"
+            useGeneratedKeys="true">
+        insert into questionnaire (`status`, title, url,
+                                   createTime, `uid`, checkTime,
+                                   mid, updateTime)
+        values (#{status,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR},
+                #{createTime,jdbcType=TIMESTAMP}, #{uid,jdbcType=INTEGER}, #{checkTime,jdbcType=TIMESTAMP},
+                #{mid,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="edu.nwpu.domain.Questionnaire"
+            useGeneratedKeys="true">
+        insert into questionnaire
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="status != null">
+                `status`,
+            </if>
+            <if test="title != null">
+                title,
+            </if>
+            <if test="url != null">
+                url,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+            <if test="uid != null">
+                `uid`,
+            </if>
+            <if test="checkTime != null">
+                checkTime,
+            </if>
+            <if test="mid != null">
+                mid,
+            </if>
+            <if test="updateTime != null">
+                updateTime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="title != null">
+                #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="url != null">
+                #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="uid != null">
+                #{uid,jdbcType=INTEGER},
+            </if>
+            <if test="checkTime != null">
+                #{checkTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="mid != null">
+                #{mid,jdbcType=INTEGER},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="edu.nwpu.domain.Questionnaire">
+        update questionnaire
+        <set>
+            <if test="status != null">
+                `status` = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="title != null">
+                title = #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="url != null">
+                url = #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                createTime = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="uid != null">
+                `uid` = #{uid,jdbcType=INTEGER},
+            </if>
+            <if test="checkTime != null">
+                checkTime = #{checkTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="mid != null">
+                mid = #{mid,jdbcType=INTEGER},
+            </if>
+            <if test="updateTime != null">
+                updateTime = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="edu.nwpu.domain.Questionnaire">
+        update questionnaire
+        set `status`   = #{status,jdbcType=INTEGER},
+            title      = #{title,jdbcType=VARCHAR},
+            url        = #{url,jdbcType=VARCHAR},
+            createTime = #{createTime,jdbcType=TIMESTAMP},
+            `uid`      = #{uid,jdbcType=INTEGER},
+            checkTime  = #{checkTime,jdbcType=TIMESTAMP},
+            mid        = #{mid,jdbcType=INTEGER},
+            updateTime = #{updateTime,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="count" resultType="java.lang.Integer">
+        select count(1)
+        from questionnaire qn
+        where qn.uid = #{uid}
+    </select>
+
+    <!--  根据用户id分页查询所有问卷详情-->
+    <select id="findAllByPageAndId" resultType="questionnaire">
+        select *
+        from questionnaire qn
+        where qn.uid = #{uid}
+        limit #{start},#{size}
+    </select>
+    <select id="findAllByPage" resultType="questionnaire">
+        select *
+        from questionnaire qn
+        limit #{start},#{size}
+    </select>
+    <select id="countAll" resultType="java.lang.Integer">
+        select count(1)
+        from questionnaire
+    </select>
+    <select id="findAllCommitByPage" resultType="edu.nwpu.domain.Questionnaire">
+        select *
+        from questionnaire qn
+        where status != 0
+        limit #{start},#{size}
+    </select>
+    <select id="countAllCommit" resultType="java.lang.Integer">
+        select count(1)
+        from questionnaire
+        where status != 0
+    </select>
+
+</mapper>

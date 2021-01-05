@@ -1,0 +1,67 @@
+<html>
+<head>
+    <title>创建问卷</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+<h1>创建问卷</h1>
+<form action="" method="post">
+    <div id="d1">
+        <select id="my_select">
+            <option name="type" value="1">文本</option>
+            <option name="type" value="2">单选</option>
+            <option name="type" value="3">多选</option>
+        </select>
+    </div><br>
+    <div>
+        <input type="button" value="创建新问题" id="btn_create">
+    </div>
+    <div>
+        <input type="submit" value="提交">
+    </div>
+
+    <script type="text/javascript">
+        var my_select=document.getElementById("my_select");
+        var d1=document.getElementById("d1");
+        my_select.onchange=function () {
+            var index=my_select.selectedIndex
+            var v=my_select.options[index].value
+            if(v==2||v==3){
+                var newEle=document.createElement('input')
+                newEle.type="text";
+                newEle.name="count";
+                newEle.id="newText"
+                newEle.placeholder="请指定问题的选项数量"
+                if(d1.getElementsByTagName("input").length<1){
+                    d1.appendChild(newEle);
+                }
+            }else if(v==1){
+                if(d1.getElementsByTagName("input").length>=1){
+                    var child=document.getElementById("newText");
+                    d1.removeChild(child);
+                }
+            }
+        }
+
+        var btn_create=document.getElementById("btn_create");
+        btn_create.onclick=function () {
+            var index=my_select.selectedIndex
+            var v=my_select.options[index].value
+            var newText=document.getElementById("newText");
+            if(newText!=null){
+                if(newText.value!=""){
+                    location="/question/onCreate?type="+v+"&count="+newText.value;
+                }
+            }else {
+                location="/question/onCreate?type="+v;
+            }
+        }
+
+    </script>
+
+</form>
+
+</body>
+
+</html>

@@ -1,0 +1,13 @@
+
+]
+java:S1192("HDefine a constant instead of duplicating this literal "my_user" 8 times.(üËE
+@
+java:S5411L"*Use the primitive boolean expression here.(¥”õì
+O
+java:S2441(":Make "User" serializable or don't store it in the session.(üËE
+O
+java:S2441]":Make "User" serializable or don't store it in the session.(üËE
+P
+java:S2441":Make "User" serializable or don't store it in the session.(üËE
+P
+java:S2441Š":Make "User" serializable or don't store it in the session.(üËE
